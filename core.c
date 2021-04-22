@@ -6,6 +6,11 @@
 #define QUARTERLY 2
 #define MONTHLY 3
 
+int dateDifferenceInDays(char *d1, char *d2)
+{
+    
+    return 0;
+}
 
 int calculate_interest(int amount, float roi, int term, int days)
 {

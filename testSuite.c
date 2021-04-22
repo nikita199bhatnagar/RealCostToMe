@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include "core.h"
+#define DATESTRLEN 15
 
 void Test_calculate_interest_individual(int amount, float roi, int term, int days, int expected, int test_number)
 { 
@@ -10,11 +13,12 @@ void Test_calculate_interest_individual(int amount, float roi, int term, int day
         printf("Test %d Passed\n",test_number);  
 }
 
- void Test_calculate_interest(){
+ void Test_calculate_interest()
+ {
     int expected, numTest, actual, amount, term, days;
     float roi;
-    scanf("%d",&numTest);
-    for(int test_number=1; test_number <= numTest; test_number++)
+    scanf("%d", &numTest);
+    for(int test_number = 1; test_number <= numTest; test_number++)
     {
         scanf("%d",&amount);
         scanf("%f",&roi);
@@ -23,10 +27,43 @@ void Test_calculate_interest_individual(int amount, float roi, int term, int day
         scanf("%d",&expected);
         Test_calculate_interest_individual(amount, roi, term,  days, expected, test_number);
     }
+}
+
+void Test_date_difference()
+{
+    int expected_days, numTest, actual_days;
+    char d1[DATESTRLEN], d2[DATESTRLEN], exp_date[DATESTRLEN];
+    scanf("%d",&numTest);
+    //printf("%d",numTest);
+    for(int test_number = 1; test_number <= numTest; test_number++)
+    {
+        scanf("%s",d1);
+        scanf("%s",d2);
+        scanf("%s",exp_date);
+        expected_days = atoi(exp_date);
+        
+        //printf("\n\nBefore test print expected days:%d\n\n",expected_days);
+
+        actual_days = dateDifferenceInDays(d1, d2);
+        if(expected_days != actual_days)
+            printf("Test %d Failed, expected_days = %d, actual_days = %d \n",test_number, expected_days, actual_days);
+        else
+            printf("Test %d Passed\n", test_number); 
+    }
+
 
 }
-int main()
+
+int main(int argc, char *argv[])
 {
-    Test_calculate_interest();
+   if(argc > 1)
+   {
+       char *category = argv[1];
+       if(strcmp(category,"i")==0)
+            Test_calculate_interest();
+       
+       else if(strcmp(category,"d")==0)
+            Test_date_difference();
+    }
     return 0;
 }
