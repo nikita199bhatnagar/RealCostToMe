@@ -60,84 +60,19 @@ int countLeapYears(int years, int month)
 
 int dateDifferenceInDays(char *d1, char *d2) //1-Jan-2020 & 15-Feb-2020
 {
-    int day[2], month_int[2], year[2];
-    char month1[MONTHDEFINE], month2[MONTHDEFINE];              
-    /*char *d[2];  
-    strcpy(d[0],d1);
-    strcpy(d[1],d2);
-    for (int i = 0; i < 2; i++)
-    {
-        char *token = strtok(d[i], "-");
-        int temp = 1;
-        while (token != NULL)
-        {
-            if (temp == 1)
-                day[i] = atoi(token);
-            else if (temp == 2)
-                strcpy(month[i], token);
-            else if (temp == 3)
-                year[i] = atoi(token);
-            else
-                break;
-            token = strtok(NULL, "-");
-            temp++;
-        }
-     
-        printf("%d\n",day[i]);
-        printf("%s\n",month[i]);
-        printf("%d\n\n",year[i]);
-        
-        printf("%d\n\n",i);
-    }*/
+    int day[2], month_int[2], year[2];  
+    char month1_name[4],month2_name[4];
 
-    char *token1 = strtok(d1, "-");
-    int temp = 1;
-    while (token1 != NULL)
-    {
-        if (temp == 1)
-            day[0] = atoi(token1);
-        else if (temp == 2)
-            strcpy(month1, token1);
-        else if (temp == 3)
-            year[0] = atoi(token1);
-        else
-            break;
-        token1 = strtok(NULL, "-");
-        temp++;
-    }
+    sscanf(d1,"%d-%3s-%d",day+0,month1_name,year+0);
+    sscanf(d2,"%d-%3s-%d",day+1,month2_name,year+1);
 
-    for(int i = 1; i <= 12; i++)
-    {
-        if (strcmp(month1,month_num[i])==0)
-            month_int[0] = i;
-    }
-
-
-    char *token2 = strtok(d2, "-");
-    temp = 1;
-    while (token2 != NULL)
-    {
-        if (temp == 1)
-            day[1] = atoi(token2);
-        else if (temp == 2)
-            strcpy(month2, token2);
-        else if (temp == 3)
-            year[1] = atoi(token2);
-        else
-            break;
-        token2 = strtok(NULL, "-");
-        temp++;
-    }
-
-    for(int i = 1; i <= 12; i++)
-    {
-        if (strcmp(month2,month_num[i])==0)
-            month_int[1] = i;
-    }
-    
+   
 
     
-    int firstDayCount, lastDayCount;
+
+
+       
+   /* int firstDayCount, lastDayCount;
     firstDayCount = year[0] * 365 + day[0];
     for (int i = 0; i < month_int[0] - 1; i++)
         firstDayCount += monthDays[i];
@@ -150,9 +85,15 @@ int dateDifferenceInDays(char *d1, char *d2) //1-Jan-2020 & 15-Feb-2020
     lastDayCount += countLeapYears(year[1],month_int[1]);
  
     return (lastDayCount - firstDayCount);
-
+*/
+return 0;
 }
 
+int days_since_unix_epoch(int day,int month,int year)
+{
+    
+    return 0;
+}
 
 int calculate_interest(int amount, float roi, int term, int days)
 {
