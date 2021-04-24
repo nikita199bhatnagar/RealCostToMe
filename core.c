@@ -5,94 +5,56 @@
 #define ANNUAL 1
 #define QUARTERLY 2
 #define MONTHLY 3
-#define MONTHDEFINE 4
-#define DATESTRLEN 15
-
-struct Date
-{
-    int day, month, year;
-    char month_ch[MONTHDEFINE];
-    int paidBackAmount, remaining, principalAtTheTime;
-};
 
 const int monthDays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-
-char *month_num[13] 
-    = {"/0", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-
-
-/*struct Date stringToDate()
-{
-    char d1[DATESTRLEN];
-    struct Date date;
-    int day_1, month_1, year_1, day_2, month_2, year_2;
-    char month1[MONTHDEFINE], month2[MONTHDEFINE];
-    char *token = strtok(d1, "-");
-    int temp = 1;
-    while (temp <= 3)
-    {
-        if (temp == 1)
-            day_1 = atoi(token);
-        else if (temp == 2)
-            strcpy(month1, token);
-        else if (temp == 3)
-            year_1 = atoi(token);
-        else
-            break;
-        token = strtok(NULL, "-");
-        temp++;
-    }
-    date.day = ;
-
-    return date;
-}*/
+char *month_num[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 int countLeapYears(int years, int month)
 {
     if (month <= 2)
         years--;
- 
-    return years / 4
-           - years / 100
-           + years / 400;
+    return years / 4 - years / 100 + years / 400;
 }
 
-int dateDifferenceInDays(char *d1, char *d2) //1-Jan-2020 & 15-Feb-2020
+int days_since_unix_epoch(int day, int month, int year)
 {
-    int day[2], month_int[2], year[2];  
-    char month1_name[4],month2_name[4];
+    int dayCount, epochCount;
+    int epochDay = 1;
+    int epochMonth = 1;
+    int epochYear = 1970;
 
-    sscanf(d1,"%d-%3s-%d",day+0,month1_name,year+0);
-    sscanf(d2,"%d-%3s-%d",day+1,month2_name,year+1);
+    epochCount = epochYear * 365 + epochDay;
+    for (int i = 0; i < epochMonth - 1; i++)
+        epochCount += monthDays[i];
+    epochCount += countLeapYears(epochYear, epochMonth);
 
-   
+    dayCount = year * 365 + day;
+    for (int i = 0; i < month - 1; i++)
+        dayCount += monthDays[i];
+    dayCount += countLeapYears(year, month);
 
-    
-
-
-       
-   /* int firstDayCount, lastDayCount;
-    firstDayCount = year[0] * 365 + day[0];
-    for (int i = 0; i < month_int[0] - 1; i++)
-        firstDayCount += monthDays[i];
- 
-    firstDayCount += countLeapYears(year[0],month_int[0]);
- 
-    lastDayCount = year[1] * 365 + day[1];
-    for (int i = 0; i < month_int[1] - 1; i++)
-        lastDayCount += monthDays[i];
-    lastDayCount += countLeapYears(year[1],month_int[1]);
- 
-    return (lastDayCount - firstDayCount);
-*/
-return 0;
+    return (dayCount - epochCount);
 }
 
-int days_since_unix_epoch(int day,int month,int year)
+int dateDifferenceInDays(char *d1, char *d2) 
 {
-    
-    return 0;
+    int epochD1, epochD2;
+    int day[2], month_int[2], year[2];
+    char month1_name[4], month2_name[4];
+
+    sscanf(d1, "%d-%3s-%d", day + 0, month1_name, year + 0);
+    sscanf(d2, "%d-%3s-%d", day + 1, month2_name, year + 1);
+
+    for (int i = 0; i < 12; i++)
+    {
+        if (strcmp(month1_name, month_num[i]) == 0)
+            month_int[0] = i + 1;
+        if (strcmp(month2_name, month_num[i]) == 0)
+            month_int[1] = i + 1;
+    }
+    epochD1 = days_since_unix_epoch(day[0], month_int[0], year[0]);
+    epochD2 = days_since_unix_epoch(day[1], month_int[1], year[1]);
+    return (epochD2 - epochD1);
 }
 
 int calculate_interest(int amount, float roi, int term, int days)
