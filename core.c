@@ -49,6 +49,7 @@ int dateDifferenceInDays(char *d1, char *d2)
                 month_int[j] = i + 1;
         epochD[j] = days_since_unix_epoch(day[j], month_int[j], year[j]);
     }
+    
     return (epochD[1] - epochD[0]);
 }
 
