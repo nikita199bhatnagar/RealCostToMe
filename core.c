@@ -24,8 +24,6 @@ int days_since_unix_epoch(int day, int month, int year)
     int epochYear = 1970;
 
     epochCount = epochYear * 365 + epochDay;
-    for (int i = 0; i < epochMonth - 1; i++)
-        epochCount += monthDays[i];
     epochCount += countLeapYears(epochYear, epochMonth);
 
     dayCount = year * 365 + day;
