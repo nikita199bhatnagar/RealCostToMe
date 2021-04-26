@@ -6,7 +6,7 @@
 
 void Test_calculate_interest_individual(int amount, float roi, int term, int days, int expected, int test_number)
 { 
-    int actual = calculate_interest(amount, roi, term, days);
+    int actual = calculateInterest(amount, roi, term, days);
     if(expected != actual)
         printf("Test %d Failed, expected = %d, actual = %d \n",test_number, expected, actual);
     else
