@@ -10,40 +10,6 @@
 const int month_days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char *month_num[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 char *term_name_arr[4] = {"/0", "Annually", "Quarterly", "Monthly"};
-/*
-int inputAndConvert()
-{
-    int  num_test, actual, amount, term, days, interest, payment_made;
-    float roi;
-    char term_name[10];
-    int interest[MAX];
-    int remainig[MAX];
-
-
-    char period[10], money_lender[50], loanee[50];
-    system("cls");
-    printf("Welcome to RealCost");//Print in center
-    //fflush();
-    printf("\nName of money lender:");
-    fgets(money_lender, sizeof(money_lender), stdin);
-    printf("\nName of loanee or borrower:");
-    fgets(loanee, sizeof(loanee), stdin);
-    printf("\nEnter the Principal Amount: ");
-    scanf("%d", &amount);
-    printf("\nEnter the Rate of Interest: ");
-    scanf("%f", &roi);
-    printf("\nEnter the term of interest application: ");
-    scanf("%s", term_name);
-    term = periodInNum(term_name);
-    printf("\nEnter the number of payment made by the borrower: ");
-    scanf("%d", &payment_made);
-
-    
-    interest = calculateInterest(amount, roi, term, days);
-
-    return interest;
-
-}*/
 
 int periodInNum(char *term_name)
 {
@@ -55,7 +21,6 @@ int periodInNum(char *term_name)
     }
     return term;
 }
-
 
 int countLeapYears(int years, int month)
 {
@@ -107,18 +72,18 @@ int calculateInterest(int amount, float roi, int term, int days)
     int interest_int;
     switch (term)
     {
-    case ANNUAL:
-        interest = ((amount * roi * days) / (360 * 100));
-        break;
-    case QUARTERLY:
-        interest = ((amount * roi * days) / (90 * 100));
-        break;
-    case MONTHLY:
-        interest = ((amount * roi * days) / (30 * 100));
-        break;
-    default:
-        printf("\n'Error in interest calculation'\n");
-        break;
+        case ANNUAL:
+            interest = ((amount * roi * days) / (360 * 100));
+            break;
+        case QUARTERLY:
+            interest = ((amount * roi * days) / (90 * 100));
+            break;
+        case MONTHLY:
+            interest = ((amount * roi * days) / (30 * 100));
+            break;
+        default:
+            printf("\n'Error in interest calculation'\n");
+            break;
     }
     interest_int = (int)interest;
     return interest_int;
