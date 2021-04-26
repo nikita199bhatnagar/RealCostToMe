@@ -34,25 +34,23 @@ int days_since_unix_epoch(int day, int month, int year)
     return (dayCount - epochCount);
 }
 
-int dateDifferenceInDays(char *d1, char *d2) 
+int dateDifferenceInDays(char *d1, char *d2)
 {
-    int epochD1, epochD2;
+    int epochD[2];
     int day[2], month_int[2], year[2];
-    char month1_name[4], month2_name[4];
+    char month_name[2][4];
 
-    sscanf(d1, "%d-%3s-%d", day + 0, month1_name, year + 0);
-    sscanf(d2, "%d-%3s-%d", day + 1, month2_name, year + 1);
-
-    for (int i = 0; i < 12; i++)
+    sscanf(d1, "%d-%3s-%d", day + 0, &month_name[0][0], year + 0);
+    sscanf(d2, "%d-%3s-%d", day + 1,&month_name[1][0] , year + 1);
+    for (int j = 0; j < 2; j++)
     {
-        if (strcmp(month1_name, month_num[i]) == 0)
-            month_int[0] = i + 1;
-        if (strcmp(month2_name, month_num[i]) == 0)
-            month_int[1] = i + 1;
+        for (int i = 0; i < 12; i++)
+            if (strcmp(month_name[j], month_num[i]) == 0)
+                month_int[j] = i + 1;
+        epochD[j] = days_since_unix_epoch(day[j], month_int[j], year[j]);
     }
-    epochD1 = days_since_unix_epoch(day[0], month_int[0], year[0]);
-    epochD2 = days_since_unix_epoch(day[1], month_int[1], year[1]);
-    return (epochD2 - epochD1);
+    
+    return (epochD[1] - epochD[0]);
 }
 
 int calculate_interest(int amount, float roi, int term, int days)
