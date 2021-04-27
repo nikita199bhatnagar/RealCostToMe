@@ -1,6 +1,7 @@
 cls 
 del *.exe
-gcc testSuite.c core.c -o testSuite
-testSuite.exe i < testInterestData.txt
-testSuite.exe d < dateDifferenceTestData.txt
+gcc testSuite.c core.c dateUtil.c -o testSuite
+testSuite.exe i < testData\testInterestData.txt
+testSuite.exe d < testData\dateDifferenceTestData.txt
+testSuite.exe u
 pause
