@@ -2,9 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include "core.h"
-
-
-char *month_numeric[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; //ask
+#include "dateUtil.h"
 
 struct Date
 {
@@ -23,10 +21,12 @@ int main()
     system("cls");
     printf("\n");
     printf("\t\t\t\t\t\t     RealCost");
+    
     printf("\n\n Name of money lender: ");
     fgets(money_lender, sizeof(money_lender), stdin);
     printf(" Name of loanee or borrower: ");
     fgets(loanee, sizeof(loanee), stdin);
+
     printf(" Enter the Principal Amount: ");
     scanf("%d", &amount);
     printf(" Enter the Rate of Interest: ");
@@ -42,7 +42,6 @@ int main()
 
     printf(" Date at which loan was given: ");
     scanf("%s", d[0].fullDate);
-    //scanf("%s", d[0].fullDate);
 
     
     d[0].principalAtTheTime = amount;
@@ -67,7 +66,7 @@ int main()
     printf("\n");
     printf("\t\t\t\t\t\t     RealCost");
     printf("\n\n Money Lender: %s", money_lender);
-    printf(" Loanee:%5s ", loanee);
+    printf(" Loanee: %5s", loanee);
 
     printf("\n\tPrincipal    Loan Taken On    Paid Back On    Paid Back Amount    Interest        Term    Remaining\n");
     for(int i=1; i<=payment_made; i++ )
