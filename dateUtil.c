@@ -40,7 +40,7 @@ int dateDifferenceInDays(char *d1, char *d2)
     for (int j = 0; j < 2; j++)
     {
         for (int i = 0; i < 12; i++)
-            if (strcmp(month_name[j], month_num[i]) == 0)
+            if (strcmpi(month_name[j], month_num[i]) == 0)
                 month_int[j] = i + 1;
         epoch_date[j] = daysSinceUnixEpoch(day[j], month_int[j], year[j]);
     }

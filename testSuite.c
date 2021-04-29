@@ -70,6 +70,34 @@ void Test_date_difference()
     }
 }
 
+
+void test_app()
+{
+    int numTest, amount, expected_remaining, expected_days, actual_days, actual_remaining, interest, term, paid;
+    float roi;
+    char date1[DATESTRLEN], date2[DATESTRLEN], term_char[10], testCase[60], garbage, roiStr[10];
+    scanf("%d",&numTest);
+    for(int test_number = 1; test_number <= numTest; test_number++)
+    {
+        scanf("%d",&amount);
+        scanf("%s",date1);
+        scanf("%s",date2);
+        scanf("%d",&paid);
+        scanf("%s", roiStr);
+        sscanf(roiStr,"%f", &roi);
+        scanf("%s",term_char);
+        scanf("%d", &expected_remaining);
+        actual_remaining = calcTotalOutstanding(amount, date1, date2,paid, roi, term_char);
+        if((expected_days != actual_days) && (expected_remaining != actual_remaining))
+            printf(" Test %d Failed,  expected_remaining = %d, actual_remaining = %d  \n",test_number, expected_remaining, actual_remaining);
+        else
+            printf(" Test %d Passed\n", test_number);
+        
+    }
+    
+}
+
+
 int main(int argc, char *argv[])
 {
     if(argc > 1)
@@ -79,6 +107,8 @@ int main(int argc, char *argv[])
             Test_calculate_interest();
         else if(strcmp(category,"d")==0)
             Test_date_difference();
+        else if(strcmp(category,"a")==0)
+           test_app();
         else if(strcmp(category,"u")==0)
            unitTestSuite(); 
     }
