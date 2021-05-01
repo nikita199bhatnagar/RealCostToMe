@@ -76,10 +76,12 @@ void test_app()
     int numTest, amount, expected_remaining, expected_days, actual_days, actual_remaining, interest, term, paid;
     float roi;
     char date1[DATESTRLEN], date2[DATESTRLEN], term_char[10], testCase[60], garbage, roiStr[10];
-    scanf("%d",&numTest);
-    for(int test_number = 1; test_number <= numTest; test_number++)
+    //test_number <= numTest
+    for(int test_number = 1;  ; test_number++)
     {
         scanf("%d",&amount);
+        if (amount == 0)
+            break;
         scanf("%s",date1);
         scanf("%s",date2);
         scanf("%d",&paid);
@@ -92,7 +94,7 @@ void test_app()
             printf(" Test %d Failed,  expected_remaining = %d, actual_remaining = %d  \n",test_number, expected_remaining, actual_remaining);
         else
             printf(" Test %d Passed\n", test_number);
-        
+        amount = 0;
     }
     
 }
