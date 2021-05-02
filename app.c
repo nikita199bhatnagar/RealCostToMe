@@ -4,7 +4,7 @@
 #include "core.h"
 #include "dateUtil.h"
 
-float roi;
+double roi;
 char term_name[10];
 int numPayment;
 
@@ -16,7 +16,7 @@ struct Branding
 struct Date
 {
     char fullDate[15];
-    int paidBackAmount, remaining, principalAtTheTime;
+    double paidBackAmount, remaining, principalAtTheTime;
 }d[100];
 
 void print_banner()
@@ -41,7 +41,7 @@ void print_report()
     printf(" Loanee: %5s", b1.loanee);
     printf("\n\tPrincipal    Loan Taken On    Paid Back On    Paid Back Amount    Interest        Term    Remaining\n");
     for(int i=1; i<=numPayment; i++ )
-        printf("\t%9d%17s%16s%20d%11.2f%c%12s%13d\n", d[i-1].principalAtTheTime, d[i-1].fullDate, d[i].fullDate, d[i].paidBackAmount, roi, '%', term_name, d[i].remaining);
+        printf("\t%9.2lf%17s%16s%20.2lf%11.2lf%c%12s%13.2lf\n", d[i-1].principalAtTheTime, d[i-1].fullDate, d[i].fullDate, d[i].paidBackAmount, roi, '%', term_name, d[i].remaining);
     
 }
 
@@ -50,13 +50,14 @@ void load_transactions()
     d[0].paidBackAmount = 0;
     get_branding_info();
     printf(" Enter the Principal Amount: ");
-    scanf("%d", & d[0].principalAtTheTime);
+    scanf("%lf", & d[0].principalAtTheTime);
     printf(" Enter the Rate of Interest: ");
-    scanf("%f", &roi);
+    scanf("%lf", &roi);
     printf(" Enter the term: ");
     scanf("%s", term_name);
     printf(" Enter the number of payment made by the borrower: ");
     scanf("%d", &numPayment);
+    printf(" \n[Date Format used is YYYY-MM-DD]\n");
     printf(" Date at which loan was given: ");
     scanf("%s", d[0].fullDate);
 
@@ -66,11 +67,10 @@ void load_transactions()
         printf("  Date at which payment %d was made: ",i);
         scanf("%s", d[i].fullDate);
         printf("  Amount of the payment made: ");
-        scanf("%d", &d[i].paidBackAmount);
+        scanf("%lf", &d[i].paidBackAmount);
         d[i].remaining = calcTotalOutstanding(d[i-1].principalAtTheTime, d[i-1].fullDate, d[i].fullDate, d[i].paidBackAmount, roi, term_name);
         d[i].principalAtTheTime = d[i].remaining;
     }
-    
 }
 
 int main()

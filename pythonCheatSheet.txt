@@ -12,4 +12,7 @@
 # To save text file from a dataframe
     df.to_csv(r'pandas.txt', header=None, index=None, sep='\t', mode='a')
 
-#
+# Truncate a file
+    file = open("sample.txt","r+")
+    file. truncate(0)
+    file. close()
