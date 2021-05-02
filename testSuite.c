@@ -32,7 +32,7 @@ void unitTestSuite()
 void Test_calculate_interest_individual(double amount, double roi, int term, int days, double expected, int test_number)
 { 
     double actual = calculateInterest(amount, roi, term, days);
-    if(expected != actual)
+    if(actual != expected)
         printf(" Test %d Failed, Expected = %lf, Actual = %lf \n",test_number, expected, actual);
     else
         printf(" Test %d Passed\n",test_number);  
