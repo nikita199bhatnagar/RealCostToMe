@@ -1,0 +1,18 @@
+ # To open a xlsx file using pandas
+    pd.read_excel('AppSpecification.xlsx', engine='openpyxl')
+
+# To drop colomns which are named like "unnamed: \d+" 
+# Reference - https://www.datasciencelearner.com/drop-unnamed-column-pandas/
+    df.columns.str.match("Unnamed")
+    df.loc[:,~df.columns.str.match("Unnamed")]
+
+# To drop rows whose colomns are NaN
+    df.dropna(subset = ["Principal"], inplace=True)
+
+# To save text file from a dataframe
+    df.to_csv(r'pandas.txt', header=None, index=None, sep='\t', mode='a')
+
+# Truncate a file
+    file = open("sample.txt","r+")
+    file. truncate(0)
+    file. close()

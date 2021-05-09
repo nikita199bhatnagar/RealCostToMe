@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "dateUtil.h"
 
 #define ANNUAL 1
 #define QUARTERLY 2
@@ -14,15 +15,14 @@ int periodInNum(char *term_name)
 {
     int term = 0;
     for(int i=1; i <= 3; i++)
-        if (strcmp(term_name,term_name_arr[i])==0)
+        if (strcmpi(term_name,term_name_arr[i])==0)
             term = i;
     return term;
 }
 
-int calculateInterest(int amount, float roi, int term, int days)
+double calculateInterest(double amount, double roi, int term, int days)
 {
-    float interest = -1;
-    int interest_int;
+    double interest = -1;
     switch (term)
     {
         case ANNUAL:
@@ -38,6 +38,13 @@ int calculateInterest(int amount, float roi, int term, int days)
             printf("\n'Error in interest calculation'\n");
             break;
     }
-    interest_int = (int)interest;
-    return interest_int;
+    return interest;
+}
+
+double calcTotalOutstanding(double amount, char *date1, char *date2, double payment, double roi, char *period)
+{
+    int days = dateDifferenceInDays(date1, date2);
+    int term = periodInNum(period);
+    double interest = calculateInterest(amount, roi, term, days);
+    return amount - payment + interest;
 }
